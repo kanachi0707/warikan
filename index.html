@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>わりかんみっちー</title>
+  <link rel="icon" href="./image/fabicon.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <img class="hero-banner" src="./image/warikan_mitchie_banner..jpg" alt="わりかんみっちー">
+    </header>
+
+    <main class="layout">
+      <section class="card card--accent card--wide">
+        <div class="section-head">
+          <h2>かんたん割り勘</h2>
+        </div>
+        <form class="quick-form" novalidate>
+          <label class="field">
+            <span>会計金額の合計</span>
+            <input id="quick-total" type="number" min="1" step="1" inputmode="numeric" placeholder="例: 4980">
+          </label>
+          <label class="field">
+            <span>人数</span>
+            <select id="quick-count">
+              <option value="">選ぶ</option>
+              <option value="1">1人</option>
+              <option value="2">2人</option>
+              <option value="3">3人</option>
+              <option value="4">4人</option>
+              <option value="5">5人</option>
+              <option value="6">6人</option>
+              <option value="7">7人</option>
+              <option value="8">8人</option>
+              <option value="9">9人</option>
+              <option value="10">10人</option>
+              <option value="11">11人</option>
+              <option value="12">12人</option>
+              <option value="manual">手動入力</option>
+            </select>
+          </label>
+          <label id="quick-manual-wrap" class="field quick-manual" hidden>
+            <span>手動人数</span>
+            <input id="quick-count-manual" type="number" min="1" step="1" inputmode="numeric" placeholder="人数を入力">
+          </label>
+          <p id="quick-error" class="error-message" aria-live="polite"></p>
+        </form>
+        <div class="mascot-talk">
+          <div id="quick-result" class="speech-bubble">会計金額と人数を入力してね！</div>
+          <img class="mascot-image" src="./image/G7xh1adboAAv9o2.png" alt="割り勘結果を案内する紫のキャラクター">
+        </div>
+      </section>
+
+      <section class="card card--wide">
+        <div class="optional-head">
+          <div>
+            <p class="optional-label">オプション</p>
+            <h2>個別に入力する</h2>
+          </div>
+          <button id="toggle-advanced" type="button" class="button button--ghost">表示する</button>
+        </div>
+
+        <div id="advanced-panel" class="advanced-panel" hidden>
+          <div class="summary-grid">
+            <div class="summary-box">
+              <p class="summary-box__label">入力済み金額</p>
+              <p id="entered-total" class="summary-box__value">0円</p>
+            </div>
+            <div class="summary-box">
+              <p class="summary-box__label">残額</p>
+              <p id="remaining-total" class="summary-box__value">0円</p>
+            </div>
+            <div class="summary-box">
+              <p class="summary-box__label">未入力メンバー向け目安</p>
+              <p id="remaining-split" class="summary-box__value summary-box__value--small">人数を設定すると表示されます</p>
+            </div>
+          </div>
+
+          <div class="member-section">
+            <div class="section-head section-head--inline">
+              <div>
+                <h3>メンバー</h3>
+              </div>
+              <span id="member-count" class="pill">0人</span>
+            </div>
+            <div id="member-list" class="member-grid"></div>
+            <p id="member-empty" class="empty-state">上の人数を選ぶとメンバー欄が表示されます。</p>
+          </div>
+
+          <section class="card card--inner card--accent">
+            <div class="section-head">
+              <h3>あとで精算</h3>
+              <p>だれがだれにいくら渡せばよいかを表示します。</p>
+            </div>
+            <div id="summary" class="summary"></div>
+            <ul id="settlement-list" class="settlement-list"></ul>
+            <p id="settlement-empty" class="empty-state">合計金額とメンバーの支払い額を入れると精算結果を表示します。</p>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer-actions">
+      <button id="reset-button" type="button" class="button button--danger">全データ削除</button>
+    </footer>
+
+    <section class="notice-block">
+      <p>注意事項</p>
+      <ul class="notice-list">
+        <li>「個別に入力する」は現在 99 人まで対応しています。</li>
+        <li>入力データはこの端末のブラウザ内に保存されます。ブラウザのキャッシュ・サイトデータ削除などで消える場合があります。</li>
+        <li>入力した名前や金額などのデータを外部へ送信・収集することはありません。</li>
+        <li>このアプリを使った金銭トラブルには一切関与致しません。</li>
+      </ul>
+    </section>
+
+    <div class="version-meta">
+      <p>Ver.1.00 : 2026.03.15 Release</p>
+    </div>
+
+    <footer class="page-footer">
+      <p>©再生の道／みっちー</p>
+      <p>非公式</p>
+      <p>Created by <a href="https://x.com/kanachi0707" target="_blank" rel="noreferrer">@kanachi0707</a></p>
+    </footer>
+  </div>
+
+  <template id="member-item-template">
+    <article class="member-card">
+      <div class="member-card__head">
+        <span class="member-number"></span>
+        <input class="member-name-input member-name-input--compact" type="text" maxlength="30" placeholder="名前（未入力でもOK）">
+      </div>
+      <label class="field">
+        <span>支払い金額</span>
+        <input class="member-paid-input" type="number" min="0" step="1" inputmode="numeric" placeholder="未入力ならあとで均等割り">
+      </label>
+      <p class="member-hint"></p>
+    </article>
+  </template>
+
+  <script src="./app.js"></script>
+</body>
+</html>
