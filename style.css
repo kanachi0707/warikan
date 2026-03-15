@@ -499,3 +499,26 @@ select:focus {
 .version-meta p {
   margin: 0;
 }
+
+.usage-block {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(124, 92, 255, 0.18);
+  color: var(--muted);
+}
+
+.usage-block p {
+  margin: 0 0 8px;
+  color: var(--primary-strong);
+  font-weight: 700;
+}
+
+.usage-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  line-height: 1.8;
+}
+
+.usage-list li + li {
+  margin-top: 4px;
+}
