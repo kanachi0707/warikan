@@ -2,6 +2,7 @@
 const MAX_MEMBERS = 99;
 const QUICK_DEFAULT_MESSAGE = "会計金額と人数を入力してね！";
 const MANUAL_COUNT_VALUE = "manual";
+let deferredInstallPrompt = null;
 
 const state = loadState();
 
@@ -24,6 +25,9 @@ const elements = {
   settlementList: document.getElementById("settlement-list"),
   settlementEmpty: document.getElementById("settlement-empty"),
   resetButton: document.getElementById("reset-button"),
+  installButton: document.getElementById("install-button"),
+  installDialog: document.getElementById("install-dialog"),
+  installDialogBody: document.getElementById("install-dialog-body"),
   memberTemplate: document.getElementById("member-item-template"),
 };
 
@@ -38,6 +42,17 @@ function bindEvents() {
   elements.toggleAdvanced.addEventListener("click", toggleAdvancedPanel);
   elements.memberList.addEventListener("input", handleMemberInput);
   elements.resetButton.addEventListener("click", handleReset);
+  elements.installButton.addEventListener("click", handleInstall);
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+  });
+
+  window.addEventListener("appinstalled", () => {
+    deferredInstallPrompt = null;
+    showInstallDialog("<p>ホーム画面に追加されました。</p>");
+  });
 }
 
 function handleQuickInput() {
@@ -121,6 +136,28 @@ function handleReset() {
   state.members = [];
   persistState();
   render();
+}
+
+function handleInstall() {
+  if (isInStandaloneMode()) {
+    showInstallDialog("<p>すでにホーム画面から使える状態です。</p>");
+    return;
+  }
+
+  if (deferredInstallPrompt) {
+    deferredInstallPrompt.prompt();
+    deferredInstallPrompt.userChoice.finally(() => {
+      deferredInstallPrompt = null;
+    });
+    return;
+  }
+
+  if (isIos()) {
+    showInstallDialog("<p>iPhone / iPad では次の順で追加できます。</p><ol><li>ブラウザの共有ボタンをタップ</li><li>「ホーム画面に追加」を選びます</li></ol>");
+    return;
+  }
+
+  showInstallDialog("<p>このブラウザでは直接追加を出せませんでした。</p><p>ブラウザのメニューから「ホーム画面に追加」や「アプリをインストール」を探してみてください。</p>");
 }
 
 function render() {
@@ -488,6 +525,25 @@ function setError(element, message) {
   element.textContent = message;
 }
 
+function showInstallDialog(html) {
+  elements.installDialogBody.innerHTML = html;
+
+  if (typeof elements.installDialog.showModal === "function") {
+    elements.installDialog.showModal();
+    return;
+  }
+
+  window.alert(elements.installDialogBody.textContent);
+}
+
+function isIos() {
+  return /iPhone|iPad|iPod/i.test(window.navigator.userAgent);
+}
+
+function isInStandaloneMode() {
+  return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+}
+
 function createId() {
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
@@ -495,3 +551,4 @@ function createId() {
 function formatCurrency(amount) {
   return `${amount.toLocaleString("ja-JP")}円`;
 }
+

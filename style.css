@@ -193,6 +193,12 @@ select:focus {
   font-weight: 700;
 }
 
+.button--primary {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+}
+
 .mascot-talk {
   display: grid;
   justify-items: center;
@@ -384,6 +390,74 @@ select:focus {
   margin-top: 20px;
   display: flex;
   justify-content: center;
+}
+
+.install-option {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.text-option-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--primary-strong);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.install-dialog {
+  width: min(92vw, 360px);
+  border: none;
+  padding: 0;
+  background: transparent;
+}
+
+.install-dialog::backdrop {
+  background: rgba(45, 36, 64, 0.26);
+}
+
+.dialog-card {
+  margin: 0;
+  padding: 22px 20px;
+  border-radius: 22px;
+  background: rgba(252, 250, 255, 0.98);
+  border: 1px solid rgba(124, 92, 255, 0.14);
+  box-shadow: var(--shadow);
+}
+
+.dialog-card h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.dialog-body {
+  margin-top: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.dialog-body p,
+.dialog-body ol {
+  margin: 0;
+}
+
+.dialog-body ol {
+  padding-left: 1.2rem;
+}
+
+.dialog-body p + p,
+.dialog-body p + ol {
+  margin-top: 8px;
+}
+
+.dialog-close {
+  width: 100%;
+  margin-top: 16px;
 }
 
 .notice-block {

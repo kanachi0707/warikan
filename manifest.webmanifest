@@ -1,7 +1,9 @@
 ﻿{
-  "name": "わりかんみっちー",
-  "short_name": "わりかんみっちー",
+  "name": "わりかん",
+  "short_name": "わりかん",
+  "description": "会計金額と人数だけで使える、かんたん割り勘アプリ。",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#f4f0fb",
   "theme_color": "#7c5cff",

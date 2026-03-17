@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>わりかんみっちー</title>
   <meta name="description" content="会計金額と人数だけで使える、かんたん割り勘アプリ。必要ならメンバーごとの支払い金額も入力してあとで精算できます。">
   <meta property="og:title" content="わりかんみっちー">
@@ -19,7 +19,9 @@
   <link rel="apple-touch-icon" href="./image/apple-touch-icon.png">
   <link rel="manifest" href="./manifest.webmanifest">
   <meta name="theme-color" content="#7c5cff">
-  <meta name="apple-mobile-web-app-title" content="わりかんみっちー">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="わりかん">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -122,6 +124,10 @@
       <button id="reset-button" type="button" class="button button--danger">全データ削除</button>
     </footer>
 
+    <div class="install-option">
+      <button id="install-button" type="button" class="text-option-button">アプリをホーム画面に追加</button>
+    </div>
+
     <section class="usage-block">
       <p>使い方</p>
       <ol class="usage-list">
@@ -142,7 +148,7 @@
     </section>
 
     <div class="version-meta">
-      <p>Ver.1.00 : 2026.03.15 Release</p>
+      <p>Ver.1.01 : 2026.03.17 Updated ホーム画面に追加機能を実装</p>
     </div>
 
     <footer class="page-footer">
@@ -165,6 +171,14 @@
       <p class="member-hint"></p>
     </article>
   </template>
+
+  <dialog id="install-dialog" class="install-dialog">
+    <form method="dialog" class="dialog-card">
+      <h2 id="install-dialog-title">ホーム画面に追加</h2>
+      <div id="install-dialog-body" class="dialog-body"></div>
+      <button type="submit" class="button button--primary dialog-close">閉じる</button>
+    </form>
+  </dialog>
 
   <script src="./app.js"></script>
 </body>
