@@ -153,11 +153,11 @@ function handleInstall() {
   }
 
   if (isIos()) {
-    showInstallDialog("<p>iPhone / iPad では次の順で追加できます。</p><ol><li>ブラウザの共有ボタンをタップ</li><li>「ホーム画面に追加」を選びます</li></ol>");
+    showInstallDialog("<p>iPhone / iPad では次の順で追加できます。</p><ol><li>ブラウザ(Safari/Chromeなど)の共有ボタンをタップ</li><li>「ホーム画面に追加」を選ぶ（ない場合は「もっと見る」を押してみて）</li></ol>");
     return;
   }
 
-  showInstallDialog("<p>このブラウザでは直接追加を出せませんでした。</p><p>ブラウザのメニューから「ホーム画面に追加」や「アプリをインストール」を探してみてください。</p>");
+  showInstallDialog("<p>このブラウザでは直接インストールを出せませんでした。</p><p>ブラウザのメニューから「ホーム画面に追加」や「アプリをインストール」を探してみてください。</p>");
 }
 
 function render() {
